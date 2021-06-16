@@ -2,24 +2,18 @@
 layout: default
 title: Benjamin Boutmans
 ---
-<!-- About-->
-<section class="page-section bg-primary" id="about">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2 class="text-white mt-0">We've got what you need!</h2>
-                <hr class="divider divider-light" />
-                <p class="text-white-75 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
-                <a class="btn btn-light btn-xl" href="#services">Get Started!</a>
-            </div>
-        </div>
-    </div>
-</section>
+{% assign sortedPhotos = site.photos | reverse %}
+<!-- Masthead-->
+{% assign latestPhoto = sortedPhotos | first %}
+<header class="masthead"
+        style="background-image:url('{{ latestPhoto.photo }}');">
+    <div class="container px-4 px-lg-5 h-100"></div>
+</header>
+
 <!-- Portfolio-->
 <div id="portfolio">
     <div class="container-fluid p-0">
         <div class="row g-0">
-            {% assign sortedPhotos = site.photos | reverse %}
             {% for photo in sortedPhotos %}
                 <div class="col-lg-4 col-sm-6">
                     <a class="portfolio-box" href="{{ photo.photo }}" title="{{ photo.content }}">
