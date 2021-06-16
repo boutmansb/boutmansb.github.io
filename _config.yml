@@ -53,3 +53,5 @@ github_username:  jekyll
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+collections:
+  photos:
