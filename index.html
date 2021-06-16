@@ -2,9 +2,8 @@
 layout: default
 title: Benjamin Boutmans
 ---
-{% assign sortedPhotos = site.photos | reverse %}
 <!-- Masthead-->
-{% assign latestPhoto = sortedPhotos | first %}
+{% assign latestPhoto = site.posts | first %}
 <header class="masthead"
         style="background-image:url('{{ latestPhoto.photo }}');">
     <div class="container px-4 px-lg-5 h-100"></div>
@@ -14,7 +13,7 @@ title: Benjamin Boutmans
 <div id="portfolio">
     <div class="container-fluid p-0">
         <div class="row g-0">
-            {% for photo in sortedPhotos %}
+            {% for photo in site.posts %}
                 <div class="col-lg-4 col-sm-6">
                     <a class="portfolio-box" href="{{ photo.photo }}" title="{{ photo.content }}">
                         <img class="img-fluid" src="{{ photo.thumbnail }}" alt="..." />
