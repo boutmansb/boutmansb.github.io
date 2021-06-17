@@ -3,9 +3,9 @@ layout: default
 title: Benjamin Boutmans
 ---
 <!-- Masthead-->
-{% assign latestPhoto = site.posts | first %}
+{% assign latestPinnedPhoto = site.posts | where: "pinned", "true" | first %}
 <header class="masthead"
-        style="background-image:url('{{ latestPhoto.photo }}');">
+        style="background-image:url('{{ latestPinnedPhoto.photo }}');">
     <div class="container px-4 px-lg-5 h-100"></div>
 </header>
 
@@ -14,19 +14,15 @@ title: Benjamin Boutmans
     <div class="container-fluid p-0">
         <div class="row g-0">
             {% for photo in site.posts %}
-                {% if forloop.first == true %}
-
-                {% else %}
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="{{ photo.photo }}" title="{{ photo.content }}"
-                            style="background-image:url('{{ photo.thumbnail }}');">
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">{{ photo.category }}</div>
-                                <div class="project-name">{{ photo.content }}</div>
-                            </div>
-                        </a>
-                    </div>
-                {% endif %}
+                <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box" href="{{ photo.photo }}" title="{{ photo.content }}"
+                        style="background-image:url('{{ photo.thumbnail }}');">
+                        <div class="portfolio-box-caption">
+                            <div class="project-category text-white-50">{{ photo.category }}</div>
+                            <div class="project-name">{{ photo.content }}</div>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
         </div>
     </div>
