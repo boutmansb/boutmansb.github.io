@@ -15,12 +15,9 @@ title: Benjamin Boutmans
         <div class="row g-0">
             {% for photo in site.posts %}
                 <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box" href="{{ photo.photo }}" title="{{ photo.content }}"
+                    <a class="portfolio-box" href="{{ photo.photo }}"
                         style="background-image:url('{{ photo.thumbnail }}');">
-                        <div class="portfolio-box-caption">
-                            <div class="project-category text-white-50">{{ photo.category }}</div>
-                            <div class="project-name">{{ photo.content }}</div>
-                        </div>
+                        <div class="portfolio-box-caption"></div>
                     </a>
                 </div>
             {% endfor %}
