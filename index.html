@@ -30,16 +30,4 @@ title: Benjamin Boutmans
             {% endfor %}
         </div>
     </div>
-{% assign postCount = site.posts | size %}
-{% assign postsCovered = site.paginate | plus:offset %}
-{% if postsCovered < postCount %}
-  <button class="loadMore">Load more posts</button>
-{% endif %}
 </div>
-
-<script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
-<script src="assets/js/paginate.js">
-</script>

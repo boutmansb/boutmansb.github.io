@@ -26,7 +26,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
     // Activate Bootstrap scrollspy on the main nav element
     const mainNav = document.body.querySelector('#mainNav');
-    console.log(mainNav);
     if (mainNav) {
         new bootstrap.ScrollSpy(document.body, {
             target: '#mainNav',
@@ -48,8 +47,40 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
     // Activate SimpleLightbox plugin for portfolio items
-    new SimpleLightbox({
-        elements: '#portfolio a.portfolio-box'
+    let lightbox = new SimpleLightbox('#portfolio a.portfolio-box', {
+        "showCounter": false
     });
+
+    $(window).scroll(function() {
+        var divTop = $('#portfolio').offset().top,
+            divHeight = $('#portfolio').outerHeight(),
+            wHeight = $(window).height(),
+            windowScrTp = $(this).scrollTop();
+        if (windowScrTp > (divTop+divHeight-wHeight-100)){
+             loadMorePosts();
+        }
+     });
+
+    function loadMorePosts() {
+      var _this = this;
+      var $blogContainer = $("#portfolio");
+      var nextPage = parseInt($blogContainer.attr("data-page")) + 1;
+      $(this).addClass("loading");
+
+      $.get("/page" + nextPage, function (data) {
+        var htmlData = $.parseHTML(data);
+        var $articles = $(htmlData).find(".portfolio-post");
+        $blogContainer.attr("data-page", nextPage);
+        $blogContainer.find('.row').append($articles);
+        if ($blogContainer.attr("data-totalPages") == nextPage) {
+          $(".loadMore").remove();
+          // End of pages reached? Stop listening to scroll event.
+          $(window).off('scroll');
+        }
+        $(_this).removeClass("loading");
+
+        lightbox.refresh();
+      });
+    }
 
 });
