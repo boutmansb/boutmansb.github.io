@@ -10,11 +10,18 @@ title: Benjamin Boutmans
 </header>
 
 <!-- Portfolio-->
-<div id="portfolio">
+{% if paginator.page %}
+  {% assign offset = paginator.page | minus:1 | times:paginator.per_page %}
+  {% assign currentPage = paginator.page %}
+{% else %}
+  {% assign offset = 0 %}
+  {% assign currentPage = 1 %}
+{% endif %}
+<div id="portfolio" class="postContainer" data-page="{{ currentPage }}" data-totalPages="{{ paginator.total_pages }}">
     <div class="container-fluid p-0">
         <div class="row g-0">
-            {% for photo in site.posts %}
-                <div class="col-lg-4 col-sm-6">
+            {% for photo in site.posts limit:site.paginate offset:offset %}
+                <div class="col-lg-4 col-sm-6 portfolio-post">
                     <a class="portfolio-box" href="{{ photo.photo }}"
                         style="background-image:url('{{ photo.thumbnail }}');">
                         <div class="portfolio-box-caption"></div>
@@ -23,4 +30,16 @@ title: Benjamin Boutmans
             {% endfor %}
         </div>
     </div>
+{% assign postCount = site.posts | size %}
+{% assign postsCovered = site.paginate | plus:offset %}
+{% if postsCovered < postCount %}
+  <button class="loadMore">Load more posts</button>
+{% endif %}
 </div>
+
+<script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+<script src="assets/js/paginate.js">
+</script>
