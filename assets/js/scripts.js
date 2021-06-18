@@ -51,13 +51,19 @@ window.addEventListener('DOMContentLoaded', event => {
         "showCounter": false
     });
 
+
+    let working = false;
+
     $(window).scroll(function() {
         var divTop = $('#portfolio').offset().top,
             divHeight = $('#portfolio').outerHeight(),
             wHeight = $(window).height(),
             windowScrTp = $(this).scrollTop();
         if (windowScrTp > (divTop+divHeight-wHeight-100)){
-             loadMorePosts();
+            if (!working) {
+                loadMorePosts();
+                working = true;
+            }
         }
      });
 
@@ -67,7 +73,7 @@ window.addEventListener('DOMContentLoaded', event => {
       var nextPage = parseInt($blogContainer.attr("data-page")) + 1;
       $(this).addClass("loading");
 
-      $.get("/page" + nextPage, function (data) {
+      $.get("/page" + nextPage + "/", function (data) {
         var htmlData = $.parseHTML(data);
         var $articles = $(htmlData).find(".portfolio-post");
         $blogContainer.attr("data-page", nextPage);
@@ -80,6 +86,8 @@ window.addEventListener('DOMContentLoaded', event => {
         $(_this).removeClass("loading");
 
         lightbox.refresh();
+
+        working = false;
       });
     }
 
