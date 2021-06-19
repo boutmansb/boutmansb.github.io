@@ -61,8 +61,8 @@ window.addEventListener('DOMContentLoaded', event => {
             windowScrTp = $(this).scrollTop();
         if (windowScrTp > (divTop+divHeight-wHeight-100)){
             if (!working) {
-                loadMorePosts();
                 working = true;
+                loadMorePosts();
             }
         }
      });
